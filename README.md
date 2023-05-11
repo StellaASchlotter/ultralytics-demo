@@ -41,5 +41,11 @@ Download the bhuman model:
 wget -O best.pt https://github.com/bhuman/VideoAnalysis/raw/4efd1f399dd4cdc40a619ba25d97ea6b2e30411f/weights/best.pt
 ```
 
+Start the docker container. The current folder is mounted in work. This is done so t hat the model and the inference data can be found. Additionally we also mount the current folder to `/usr/src/app/runs/` so that we can see the result.
+```
 docker run -it --privileged -v ${PWD}:/work -v ${PWD}:/usr/src/app/runs/ --gpus all --ipc host ultralytics/yolov5:latest /bin/bash
+```
+Inside the container run the inference like this:
+```
 python detect.py --weights /work/best.pt --source /work/test.jpg 
+```
